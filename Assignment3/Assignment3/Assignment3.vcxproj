@@ -146,6 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assign3_driver.cpp" />
+    <ClCompile Include="MemberDO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Member.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MemberDO.h" />
+    <ClInclude Include="orderedLinkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
