@@ -26,11 +26,19 @@ public:
         void clear();
         int size() const;
 	void print() const;
+
+private:
+	Node* head;
+	Node* tail;
+	int count;
 };
 
 template <class Type>
 OrderedLinkedList<Type>::OrderedLinkedList()
 {
+	this->head = NULL;
+	this->tail = NULL;
+	this->count = 0;
 }
 
 template <class Type>

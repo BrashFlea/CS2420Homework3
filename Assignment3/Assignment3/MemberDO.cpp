@@ -6,46 +6,59 @@ using namespace std;
 
 MemberDO::MemberDO()
 {
+	this->key;
+	this->lastName;
+	this->firstInit;
+	this->dues = 0.00;
+	
 }
 
 MemberDO::MemberDO(int k, string ln, char fi, double d)
 {
+	this->key = k;
+	this->lastName = ln;
+	this->firstInit = fi;
+	this->dues = d;
 }
 
 int MemberDO::getKey() const
 {
-return 0;
+	return key;
 }
 
 void MemberDO::setKey(int k)
 {
+	this->key = k;
 }
 
 string MemberDO::getLastName() const
 {
-return "";
+	return lastName;
 }
 
 void MemberDO::setLastName(string ln)
 {
+	this->lastName = ln;
 }
 
 char MemberDO::getFirstInitial() const
 {
-return 0;
+	return this->firstInit;
 }
 
 void MemberDO::setFirstInitial(char fi)
 {
+	this->firstInit = fi;
 }
 
 double MemberDO::getDues() const
 {
-return 0;
+	return dues;
 }
 
 void MemberDO::setDues(double d)
 {
+	this->dues = d;
 }
 
 void MemberDO::print() const
