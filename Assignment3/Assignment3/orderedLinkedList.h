@@ -28,8 +28,8 @@ public:
 	void print() const;
 
 private:
-	Node* head;
-	Node* tail;
+	Node<Type>* head;
+	Node<Type>* tail;
 	int count;
 };
 
@@ -49,6 +49,16 @@ OrderedLinkedList<Type>::OrderedLinkedList(const OrderedLinkedList<Type>& other)
 template <class Type>
 OrderedLinkedList<Type>::~OrderedLinkedList()
 {
+	Node<Type> *tmp;
+
+	while (head != NULL) {
+		tmp = head;
+		tmp = head->next;
+		delete tmp;
+	}
+
+	tail = NULL;
+	count = 0;
 }
 
 template <class Type>
@@ -60,7 +70,35 @@ return *this;
 template <class Type>
 int OrderedLinkedList<Type>::insert(const Type& item)
 {
-return -1;
+	Node<Type> *current = NULL;
+	Node<Type> *trail = NULL;
+	Node<Type> *newNode = NULL;
+	bool found;
+
+	newNode = new Node<Type>;
+	newNode->info.setKey(item.getKey());
+	newNode->info.setLastName(item.getLastName());
+	newNode->info.setFirstInitial(item.getFirstInitial());
+	newNode->info.setDues(item.getDues());
+	newNode->next = NULL;
+
+	//Empty list insert
+	if (head == NULL) {
+		int keyValue = newNode->info.getKey();
+		head = newNode;
+		tail = newNode;
+		count++;
+		newNode = NULL;
+		return keyValue;
+	}
+	//Sorted item insert
+	else{
+	}
+
+
+	
+
+	return NULL;
 }
 
 template <class Type>
@@ -90,7 +128,7 @@ void OrderedLinkedList<Type>::clear()
 template <class Type>
 int OrderedLinkedList<Type>::size() const
 {
-return -1;
+	return count;
 }
 
 template <class Type>

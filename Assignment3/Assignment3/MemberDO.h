@@ -6,6 +6,7 @@
 
 class MemberDO
 {
+
 	private:
 		int key;
 		std::string lastName;

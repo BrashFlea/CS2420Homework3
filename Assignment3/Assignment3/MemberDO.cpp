@@ -6,9 +6,9 @@ using namespace std;
 
 MemberDO::MemberDO()
 {
-	this->key;
-	this->lastName;
-	this->firstInit;
+	this->key = 0;
+	this->lastName = "";
+	this->firstInit = ' ';
 	this->dues = 0.00;
 	
 }
@@ -19,6 +19,7 @@ MemberDO::MemberDO(int k, string ln, char fi, double d)
 	this->lastName = ln;
 	this->firstInit = fi;
 	this->dues = d;
+
 }
 
 int MemberDO::getKey() const
