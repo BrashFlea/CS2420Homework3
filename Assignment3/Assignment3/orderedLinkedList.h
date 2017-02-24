@@ -73,7 +73,7 @@ int OrderedLinkedList<Type>::insert(const Type& item)
 	Node<Type> *current = NULL;
 	Node<Type> *trail = NULL;
 	Node<Type> *newNode = NULL;
-	bool found;
+	bool found = false;
 
 	newNode = new Node<Type>;
 	newNode->info.setKey(item.getKey());
@@ -93,24 +93,96 @@ int OrderedLinkedList<Type>::insert(const Type& item)
 	}
 	//Sorted item insert
 	else{
+		current = head;
+		while (current != NULL && found != true) {
+			if (current->info.getKey() >= item.getKey()) {
+				found = true;
+			}
+			else {
+				trail = current;
+				current = current->next;
+			}
+			if (current == head) {
+				newNode->next = head;
+				head = newNode;
+				count++;
+			} 
+			else {
+				trail->next = newNode;
+				newNode->next = current;
+
+				if (current == NULL) {
+					tail = newNode;
+				}
+				count++;
+			}
+				
+		}
 	}
-
-
-	
-
 	return NULL;
 }
 
 template <class Type>
 Type* OrderedLinkedList<Type>::get(int dest) const
 {
-return NULL;
+	Node<Type> *tmp = NULL;
+	tmp = head;
+	int location = 0;
+
+	//Bounds check
+	if (dest < 0 || dest > count) {
+		return NULL;
+	}
+
+	while (location <= dest) {
+		//Bounds check
+		if (tmp == NULL){
+			break;
+		}
+		//Equality check
+		if (location == dest) {			
+			return &tmp->info;
+		}
+		else{
+			tmp = head->next;
+			location++;
+
+		}
+		
+	}
+	return NULL;
+	
 }
 
 template <class Type>
 Type* OrderedLinkedList<Type>::find(int dest) const
 {
-return NULL;
+	Node<Type> *tmp = NULL;
+	tmp = head;
+	int location = head->info.getKey();
+
+	//Check head for key
+	if (location == dest) {
+		return &tmp->info;
+	}
+
+	//Traverse list to find key
+	while (location != dest) {
+			tmp = head->next;
+			location = tmp->info.getKey();
+
+			if (tmp == NULL) {
+				break;
+			}
+	}
+
+	//return key
+	if (location == dest) {
+		return &tmp->info;
+	}
+	//not found
+	else return NULL;
+
 }
 
 template <class Type>

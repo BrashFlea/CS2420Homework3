@@ -61,7 +61,7 @@ int main()
     //insert - middle
     memberList.insert(MemberDO(2660, "Franklin", 'F', 20.00));
     checkTest("Test 7", 'F', memberList.get(2)->getFirstInitial());
-    //First is still fisrt
+    //First is still first
     checkTest("Test 8", 17.50, memberList.get(0)->getDues());
     //get out of bounds
     NULLCheckTest("Test 9", memberList.get(4));
