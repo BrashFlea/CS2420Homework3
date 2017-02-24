@@ -92,8 +92,9 @@ int OrderedLinkedList<Type>::insert(const Type& item)
 		return keyValue;
 	}
 	//Sorted item insert
-	else{
+	else {
 		current = head;
+		int keyValue = newNode->info.getKey();
 		while (current != NULL && found != true) {
 			if (current->info.getKey() >= item.getKey()) {
 				found = true;
@@ -102,24 +103,24 @@ int OrderedLinkedList<Type>::insert(const Type& item)
 				trail = current;
 				current = current->next;
 			}
-			if (current == head) {
-				newNode->next = head;
-				head = newNode;
-				count++;
-			} 
-			else {
-				trail->next = newNode;
-				newNode->next = current;
+		}//end search while loop
+		if (current == head) {
+			newNode->next = head;
+			head = newNode;
+			count++;
+			return keyValue;
+		}
+		else {
+			trail->next = newNode;
+			newNode->next = current;
 
-				if (current == NULL) {
-					tail = newNode;
-				}
-				count++;
+			if (current == NULL) {
+				tail = newNode;
 			}
-				
+			count++;
+			return keyValue;
 		}
 	}
-	return NULL;
 }
 
 template <class Type>
@@ -143,12 +144,8 @@ Type* OrderedLinkedList<Type>::get(int dest) const
 		if (location == dest) {			
 			return &tmp->info;
 		}
-		else{
-			tmp = head->next;
-			location++;
-
-		}
-		
+		tmp = tmp->next;
+		location++;
 	}
 	return NULL;
 	
