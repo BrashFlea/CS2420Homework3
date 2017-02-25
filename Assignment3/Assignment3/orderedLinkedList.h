@@ -53,7 +53,7 @@ OrderedLinkedList<Type>::~OrderedLinkedList()
 
 	while (head != NULL) {
 		tmp = head;
-		tmp = head->next;
+		head = head->next;
 		delete tmp;
 	}
 
@@ -156,6 +156,12 @@ Type* OrderedLinkedList<Type>::find(int dest) const
 {
 	Node<Type> *tmp = NULL;
 	tmp = head;
+
+	//Empty List check
+	if (tmp == NULL) {
+		return NULL;
+	}
+
 	int location = head->info.getKey();
 
 	//Check head for key
@@ -165,12 +171,14 @@ Type* OrderedLinkedList<Type>::find(int dest) const
 
 	//Traverse list to find key
 	while (location != dest) {
-			tmp = head->next;
-			location = tmp->info.getKey();
+			tmp = tmp->next;
 
+			//End of list check
 			if (tmp == NULL) {
 				break;
 			}
+
+			location = tmp->info.getKey();
 	}
 
 	//return key
@@ -191,8 +199,17 @@ return 0;
 template <class Type>
 void OrderedLinkedList<Type>::clear()
 {
-}
+	Node<Type> *tmp;
 
+	while (head != NULL) {
+		tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+
+	tail = NULL;
+	count = 0;
+}
 
 template <class Type>
 int OrderedLinkedList<Type>::size() const
