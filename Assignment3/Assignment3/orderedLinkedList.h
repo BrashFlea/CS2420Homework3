@@ -44,6 +44,43 @@ OrderedLinkedList<Type>::OrderedLinkedList()
 template <class Type>
 OrderedLinkedList<Type>::OrderedLinkedList(const OrderedLinkedList<Type>& other)
 {
+	Node<Type> *newNode = NULL;
+	Node<Type> *current = NULL;
+
+	//Clear current list
+	if (head != NULL) {
+		this->clear();
+	}
+
+	//Other is empty
+	if (other.head == NULL) {
+		head = NULL;
+		tail = NULL;
+		count = 0;
+	}
+	else {
+		current = other.head;
+		count = other.count;
+		
+		//First node
+		head = new Node<Type>;
+		head->info = current->info;
+		head->next = NULL;
+		tail = head;
+		current = current->next;
+
+		//Rest of the list
+		while (current != NULL) {
+			newNode = new Node<Type>;
+			newNode->info = current->info;
+			newNode->next = NULL;
+			tail->next = newNode;
+			tail = newNode;
+			current = current->next;
+		}
+	
+	}
+
 }
 
 template <class Type>
@@ -64,7 +101,8 @@ OrderedLinkedList<Type>::~OrderedLinkedList()
 template <class Type>
 OrderedLinkedList<Type>& OrderedLinkedList<Type>::operator=(const OrderedLinkedList& other)
 {
-return *this;
+
+	return *this;
 }
 
 template <class Type>
@@ -181,11 +219,11 @@ Type* OrderedLinkedList<Type>::find(int dest) const
 			location = tmp->info.getKey();
 	}
 
-	//return key
+	//Return key
 	if (location == dest) {
 		return &tmp->info;
 	}
-	//not found
+	//Not found
 	else return NULL;
 
 }
@@ -193,6 +231,10 @@ Type* OrderedLinkedList<Type>::find(int dest) const
 template <class Type>
 int OrderedLinkedList<Type>::remove(int key)
 {
+	if (this->find(key) == NULL) {
+		return -1;
+	}
+
 return 0;
 }
 
