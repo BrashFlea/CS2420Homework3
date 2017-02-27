@@ -26,6 +26,7 @@ public:
         void clear();
         int size() const;
 	void print() const;
+	void copyList(const OrderedLinkedList<Type>& other);
 
 private:
 	Node<Type>* head;
@@ -44,6 +45,13 @@ OrderedLinkedList<Type>::OrderedLinkedList()
 template <class Type>
 OrderedLinkedList<Type>::OrderedLinkedList(const OrderedLinkedList<Type>& other)
 {
+	head = NULL;
+	copyList(other);
+}
+
+template <class Type>
+void OrderedLinkedList<Type>::copyList(const OrderedLinkedList<Type>& other)
+{
 	Node<Type> *newNode = NULL;
 	Node<Type> *current = NULL;
 
@@ -61,7 +69,7 @@ OrderedLinkedList<Type>::OrderedLinkedList(const OrderedLinkedList<Type>& other)
 	else {
 		current = other.head;
 		count = other.count;
-		
+
 		//First node
 		head = new Node<Type>;
 		head->info = current->info;
@@ -78,9 +86,8 @@ OrderedLinkedList<Type>::OrderedLinkedList(const OrderedLinkedList<Type>& other)
 			tail = newNode;
 			current = current->next;
 		}
-	
-	}
 
+	}
 }
 
 template <class Type>
@@ -101,7 +108,10 @@ OrderedLinkedList<Type>::~OrderedLinkedList()
 template <class Type>
 OrderedLinkedList<Type>& OrderedLinkedList<Type>::operator=(const OrderedLinkedList& other)
 {
-
+	if (this != &other)
+	{
+		copyList(other);
+	}
 	return *this;
 }
 
@@ -231,11 +241,67 @@ Type* OrderedLinkedList<Type>::find(int dest) const
 template <class Type>
 int OrderedLinkedList<Type>::remove(int key)
 {
-	if (this->find(key) == NULL) {
+
+//Modified find implementation
+	Node<Type> *tmp = NULL;
+	Node<Type> *remove = NULL;
+	Node<Type> *trailTmp = NULL;
+	tmp = head;
+
+	//Empty List check
+	if (tmp == NULL) {
 		return -1;
 	}
 
-return 0;
+	int location = head->info.getKey();
+
+	//Check head for key
+	if (location == key) {
+		remove = tmp;
+	}
+
+	//Traverse list to find key
+	while (location != key) {
+		trailTmp = tmp;
+		tmp = tmp->next;
+
+		//End of list check
+		if (tmp == NULL) {
+			break;
+		}
+
+		location = tmp->info.getKey();
+	}
+
+	//Return key
+	if (location == key) {
+		remove = tmp;
+	}
+	//Not found
+	else return -1;
+//End find implementation
+
+	//Delete from head
+	if (remove == head) {
+		head = remove->next;
+		delete remove;
+	}
+	//Delete remove tail
+	else if (remove == tail) {
+		tail = trailTmp;
+		tail->next = NULL;
+		delete remove;
+	}
+	//Delete from middle
+	else {
+		trailTmp->next = tmp->next;
+		tmp->next = NULL;
+		delete remove;
+	}
+
+	count--;
+
+return key;
 }
 
 template <class Type>
@@ -263,4 +329,5 @@ template <class Type>
 void OrderedLinkedList<Type>::print() const
 {
 }
+
 #endif
