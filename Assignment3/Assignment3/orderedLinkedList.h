@@ -1,6 +1,13 @@
 #ifndef ORDEREDLINKEDLIST_H
 #define ORDEREDLINKEDLIST_H
 
+//For cout
+#include<iostream>
+//For NULL
+#include<stddef.h>
+
+using std::cout;
+
 template <class Type>
 struct Node
 {
@@ -332,7 +339,7 @@ void OrderedLinkedList<Type>::print() const
 
 	while (head != NULL) {
 		tmp = head;
-		cout << tmp->info;
+		std::cout << tmp->info;
 		head = head->next;
 	}
 
