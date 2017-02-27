@@ -328,6 +328,14 @@ int OrderedLinkedList<Type>::size() const
 template <class Type>
 void OrderedLinkedList<Type>::print() const
 {
+	Node<Type> *tmp;
+
+	while (head != NULL) {
+		tmp = head;
+		cout << tmp->info;
+		head = head->next;
+	}
+
 }
 
 #endif
